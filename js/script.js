@@ -1,27 +1,26 @@
 function enterMovie(){
-	//alert('hey');
+	//This div will contain movie info
 	var newDiv = document.createElement("div");
-	var tag = document.createElement('H1');
-	//replace 'Title man' with actual title (fetch it from input) 
-	var t = document.createTextNode('Title man');
-	tag.appendChild(t);
+	newDiv.setAttribute("id", "newDiv");
 
-	//var newContent = document.createTextNode("hi there");
-	newDiv.appendChild(tag);
-
-
+	var category = ["title", "genre"];
+	var input_array = [];
+	//put inputs into array
+	for(var i=0; i < category.length; i++) {
+		var input = document.getElementById(category[i]);
+		input_array[i] = input;
+	}
+	//append inputs into new div 
+	for(var i=0; i < category.length; i++) {
+		var tag = document.createElement('H1');
+		var input = input_array[i].value;
+		var t = document.createTextNode(input);
+		tag.appendChild(t);
+		newDiv.appendChild(tag); //putting input into new div
+	}
+	//post new div to html
 	var board = document.getElementById('board');
-	//document.body.insertBefore(newDiv, board);
 	board.appendChild(newDiv);
-
-	//var data = document.getElementById('dynamicInput');
-
-
-	//board.appendChild(data);
-	//var v = $("#dynamicInput :input");
-    //board.innerHTML = v.movie;
-    //var v = $('#title').val();
-    //alert('e');
 
     return false;
 }
