@@ -18,7 +18,7 @@ function enterMovie(){
 		tag.appendChild(t);
 		newDiv.appendChild(tag); //putting input into new div
 	}
-	//post new div to html
+	//post new div to html --> post in different div later (have 2~3 different divs)
 	var board = document.getElementById('board');
 	board.appendChild(newDiv);
 
