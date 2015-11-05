@@ -1,4 +1,8 @@
 function enterMovie(){
+	//This div will contain movie info
+	var newDiv = document.createElement("div");
+	newDiv.setAttribute("id", "newDiv");
+
 	var category = ["title", "genre"];
 	var input_array = [];
 	//put inputs into array
@@ -6,10 +10,6 @@ function enterMovie(){
 		var input = document.getElementById(category[i]);
 		input_array[i] = input;
 	}
-
-	//var dynamicRow = document.getElementById("dynamicRow");
-	var dynamicRow = document.createElement("div");
-	dynamicRow.setAttribute("class", "row");
 
 	//This div will contain all movie info
 	// var newDiv = document.createElement("div");
@@ -23,12 +23,12 @@ function enterMovie(){
 	var image = document.createElement("img");
 	image.setAttribute("class", "img-responsive");
 	image.setAttribute("id", "movie_imgae");
-	image.setAttribute("src", "http://i0.wp.com/bitcast-a-sm.bitgravity.com/slashfilm/wp/wp-content/images/Lego-Batman-movie-700x300.jpg?resize=700%2C300");
+	image.setAttribute("src", "http://www.unomaha.edu/news/2014/05/events/movie.jpg");
 	image.setAttribute("alt", "");
 	imageAnchor.appendChild(image);
 	imageDiv.appendChild(imageAnchor);
 
-	dynamicRow.appendChild(imageDiv);
+	newDiv.appendChild(imageDiv);
 
 	//This div will contain all other movie infos
 	var infoDiv = document.createElement("div");
@@ -45,16 +45,24 @@ function enterMovie(){
 	infoDiv.appendChild(title);
 	infoDiv.appendChild(genre);
 
-	var line = document.createElement("HR");
-
-	dynamicRow.appendChild(infoDiv);
-
-	var containDiv = document.getElementById("containDiv");
-
-	containDiv.appendChild(dynamicRow);
-	containDiv.appendChild(line);
+	newDiv.appendChild(infoDiv);
 
 
+/*
+	//append inputs into new div 
+	for(var i=0; i < category.length; i++) {
+		var tag = document.createElement('H1');
+		var input = input_array[i].value;
+		var t = document.createTextNode(input);
+		tag.appendChild(t);
+		newDiv.appendChild(tag); //putting input into new div
+	}
+*/
+
+
+	//post new div to html --> post in different div later (have 2~3 different divs)
+	var board = document.getElementById('board');
+	board.appendChild(newDiv);
 
     return false;
 }
