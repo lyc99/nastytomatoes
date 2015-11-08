@@ -30,31 +30,82 @@ function enterMovie(){
 	var genre = set_genre(input_array[2].value);
 	//get actors
 	var actors = set_actors(input_array[3].value);
+	//get rating
+	var rating = set_rating(input_array[4].value);
 	//this line goes under the dynamic row
 	var line = document.createElement("HR");
 	line.setAttribute("id", "line"+index);
 	//delete button
 	var delete_button = set_delete_button(dynamicRow, line);
 
+	//update dialog input texts
+	var update_dialog = set_update_dialog();
 
+	//update button 
+	var update_botton = set_update_button(update_dialog);
+
+	//put all elements into infoDiv
 	infoDiv.appendChild(title);
 	infoDiv.appendChild(year);
 	infoDiv.appendChild(genre);
 	infoDiv.appendChild(actors);
+	infoDiv.appendChild(rating);
 	infoDiv.appendChild(delete_button);
-
-
-
+	infoDiv.innerHTML += '&nbsp;';
+	infoDiv.appendChild(update_botton);
+	//put infoDiv into dynamicRow
 	dynamicRow.appendChild(infoDiv);
-
+	//containDiv holds all the movies
 	var containDiv = document.getElementById("containDiv");
-
+	//add movie and add a line to separate between movies as well
 	containDiv.appendChild(dynamicRow);
 	containDiv.appendChild(line);
-
+	//increment index so different dynamicRow's have different id's
 	index = index + 1;
 
     return false;
+}
+function set_rating(r) {
+	var rating = document.createElement("H4");
+	if(r == "") {
+		var rating_text = document.createTextNode("Rating: /5");
+	}
+	else {
+		var rating_text = document.createTextNode("Rating: "+r+"/5");
+	}
+	rating.appendChild(rating_text);
+	return rating;
+}
+function set_update_dialog() {
+	var update_dialog = document.createElement("div");
+	update_dialog.setAttribute("id", "dialog");
+	//Title
+	var t = document.createTextNode("Title: ");
+	update_dialog.appendChild(t);
+	var title_input = document.createElement("input");
+	title_input.type = "text";
+	title_input.setAttribute("id", "updated_title");
+	update_dialog.appendChild(title_input);
+	//Genre
+	var g = document.createTextNode("Genre: ");
+	update_dialog.appendChild(g);
+	var genre_input = document.createElement("input");
+	genre_input.type = "text";
+	genre_input.setAttribute("id", "updated_genre");
+	update_dialog.appendChild(genre_input);
+
+
+	return update_dialog;
+}
+function set_update_button(update_dialog) {
+	var button = document.createElement('submit');
+	button.setAttribute("class", "btn btn-primary");
+	var button_text = document.createTextNode("Update");
+	button.appendChild(button_text);
+	button.onclick = function() {
+		$(update_dialog).dialog();
+	}
+	return button;
 }
 function set_delete_button(dynamicRow, line) {
 	var button = document.createElement('submit');
