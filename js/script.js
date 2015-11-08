@@ -23,15 +23,15 @@ function enterMovie(){
 	infoDiv.setAttribute("class", "col-md-5");
 
 	//get title
-	var title = set_title(input_array[0].value);
+	var title = set_title(input_array[0].value, index);
 	//get year
-	var year = set_year(input_array[1].value);
+	var year = set_year(input_array[1].value, index);
 	//get genre
-	var genre = set_genre(input_array[2].value);
+	var genre = set_genre(input_array[2].value, index);
 	//get actors
-	var actors = set_actors(input_array[3].value);
+	var actors = set_actors(input_array[3].value, index);
 	//get rating
-	var rating = set_rating(input_array[4].value);
+	var rating = set_rating(input_array[4].value, index);
 	//this line goes under the dynamic row
 	var line = document.createElement("HR");
 	line.setAttribute("id", "line"+index);
@@ -39,10 +39,9 @@ function enterMovie(){
 	var delete_button = set_delete_button(dynamicRow, line);
 
 	//update dialog input texts
-	var update_dialog = set_update_dialog();
-
+	var update_dialog = set_update_dialog(index);
 	//update button 
-	var update_botton = set_update_button(update_dialog);
+	var update_botton = set_update_button(update_dialog, index);
 
 	//put all elements into infoDiv
 	infoDiv.appendChild(title);
@@ -65,25 +64,32 @@ function enterMovie(){
 
     return false;
 }
-function set_rating(r) {
-	var rating = document.createElement("H4");
-	if(r == "") {
-		var rating_text = document.createTextNode("Rating: /5");
-	}
-	else {
-		var rating_text = document.createTextNode("Rating: "+r+"/5");
-	}
-	rating.appendChild(rating_text);
-	return rating;
-}
-
-function set_update_button(update_dialog) {
+function set_update_button(update_dialog, index) {
 	var button = document.createElement('submit');
 	button.setAttribute("class", "btn btn-primary");
 	var button_text = document.createTextNode("Update");
 	button.appendChild(button_text);
 	button.onclick = function() {
-		$(update_dialog).dialog();
+		$(update_dialog).dialog({
+			modal: true,
+			buttons: {
+				"Update": function() {
+					var currentTitle = document.getElementById("title"+index);
+					currentTitle.innerText = document.getElementById("updated_title"+index).value;
+					var currentYear = document.getElementById("year"+index);
+					currentYear.innerText = document.getElementById("updated_year"+index).value;
+					var currentGenre = document.getElementById("genre"+index);
+					currentGenre.innerText = document.getElementById("updated_genre"+index).value;
+					var currentActors = document.getElementById("actors"+index);
+					currentActors.innerText = "Cast: "+document.getElementById("updated_actors"+index).value;
+					var currentRating = document.getElementById("rating"+index);
+					currentRating.innerText = "Rating: "+document.getElementById("updated_rating"+index).value+"/5";
+				},
+				"Close": function() {
+					$(this).dialog("close");
+				}
+			}
+		});
 	}
 	return button;
 }
@@ -101,15 +107,28 @@ function set_delete_button(dynamicRow, line) {
 	button.appendChild(button_text);
 	return button;
 }
-function set_actors(a) {
+function set_rating(r, index) {
+	var rating = document.createElement("H4");
+	rating.setAttribute("id", "rating"+index);
+	if(r == "") {
+		var rating_text = document.createTextNode("Rating: /5");
+	}
+	else {
+		var rating_text = document.createTextNode("Rating: "+r+"/5");
+	}
+	rating.appendChild(rating_text);
+	return rating;
+}
+function set_actors(a, index) {
 	var actors = document.createElement("P");
 	var actors_text = document.createTextNode("Cast: " + a);
-	
+	actors.setAttribute("id", "actors"+index);
 	actors.appendChild(actors_text);
 	return actors;
 }
-function set_genre(g) {
+function set_genre(g, index) {
 	var genre = document.createElement("H4");
+	genre.setAttribute("id", "genre"+index);
 	if(g == "") {
 		var genre_text = document.createTextNode("-");
 	}
@@ -119,8 +138,9 @@ function set_genre(g) {
 	genre.appendChild(genre_text);	
 	return genre;
 }
-function set_year(y) {
+function set_year(y, index) {
 	var year = document.createElement("H4");
+	year.setAttribute("id", "year"+index);
 	if(y == "") {
 		var year_text = document.createTextNode("-");
 	}
@@ -130,21 +150,22 @@ function set_year(y) {
 	year.appendChild(year_text);
 	return year;
 }
-function set_title(t) {
+function set_title(t, index) {
 	var title = document.createElement("H3");
+	title.setAttribute("id", "title"+index);
 	var title_text = document.createTextNode(t);
 	title.appendChild(title_text);
 	return title;
 }
 
-function set_poster(poster_link) {
+function set_poster(poster_link, index) {
 	var imageDiv = document.createElement("div");
 	imageDiv.setAttribute("class", "col-md-7");
 	var imageAnchor = document.createElement("a");
 	imageAnchor.setAttribute("href", "#");
 	var image = document.createElement("img");
 	image.setAttribute("class", "img-responsive");
-	image.setAttribute("id", "movie_imgae");
+	image.setAttribute("id", "movie_image"+index);
 	if(poster_link == "") {
 		image.setAttribute("src", "http://i0.wp.com/bitcast-a-sm.bitgravity.com/slashfilm/wp/wp-content/images/Lego-Batman-movie-700x300.jpg?resize=700%2C300");
 	}
@@ -158,38 +179,63 @@ function set_poster(poster_link) {
 	imageDiv.appendChild(imageAnchor);
 	return imageDiv;
 }
-function set_update_dialog() {
+function set_update_dialog(index) {
 	var update_dialog = document.createElement("div");
 	update_dialog.setAttribute("id", "dialog");
+	update_dialog.setAttribute("title", "Update Info");
 	//Title
 	var t = document.createTextNode("Title: ");
 	update_dialog.appendChild(t);
 	var title_input = document.createElement("input");
 	title_input.type = "text";
-	title_input.setAttribute("id", "updated_title");
+	title_input.setAttribute("id", "updated_title"+index);
 	update_dialog.appendChild(title_input);
 	//Year
 	var y = document.createTextNode("Year: ");
 	update_dialog.appendChild(y);
 	var year_input = document.createElement("input");
 	year_input.type = "text";
-	year_input.setAttribute("id", "updated_year");
+	year_input.setAttribute("id", "updated_year"+index);
 	update_dialog.appendChild(year_input);
 	//Genre
 	var g = document.createTextNode("Genre: ");
 	update_dialog.appendChild(g);
 	var genre_input = document.createElement("input");
 	genre_input.type = "text";
-	genre_input.setAttribute("id", "updated_genre");
+	genre_input.setAttribute("id", "updated_genre"+index);
 	update_dialog.appendChild(genre_input);
 	//Actors
 	var a = document.createTextNode("Actors: ");
 	update_dialog.appendChild(a);
 	var actors_input = document.createElement("input");
 	actors_input.type = "text";
-	actors_input.setAttribute("id", "updated_actors");
+	actors_input.setAttribute("id", "updated_actors"+index);
 	update_dialog.appendChild(actors_input);
+	//Rating
+	var r = document.createTextNode("Rating: ");
+	update_dialog.appendChild(r);
+	var rating_input = document.createElement("input");
+	rating_input.type = "text";
+	rating_input.setAttribute("id", "updated_rating"+index);
+	update_dialog.appendChild(rating_input);
+	//Poster
+	// var p = document.createTextNode("Poster: ");
+	// update_dialog.appendChild(p);
+	// var poster_input = document.createElement("input");
+	// poster_input.type = "text";
+	// poster_input.setAttribute("id", "updated_poster");
+	// update_dialog.appendChild(poster_input);
 
+	//button
+
+	// var button = document.createElement('submit');
+	// button.setAttribute("class", "btn btn-primary");
+	// var button_text = document.createTextNode("Update");
+	// button.appendChild(button_text);
+	// button.onclick = function() {
+	// 	$(update_dialog).dialog();
+	// }
+	// update_dialog.appendChild(button);
 
 	return update_dialog;
 }
