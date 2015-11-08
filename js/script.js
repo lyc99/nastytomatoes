@@ -1,5 +1,5 @@
 var index = 0;
-function enterMovie(){
+function enterMovie() {
 	var category = ["title", "year", "genre", "actors", "rating", "poster"];
 	var input_array = [];
 	//put inputs into array
@@ -167,7 +167,7 @@ function set_poster(poster_link, index) {
 	image.setAttribute("class", "img-responsive");
 	image.setAttribute("id", "movie_image"+index);
 	if(poster_link == "") {
-		image.setAttribute("src", "http://i0.wp.com/bitcast-a-sm.bitgravity.com/slashfilm/wp/wp-content/images/Lego-Batman-movie-700x300.jpg?resize=700%2C300");
+		image.setAttribute("src", "http://texasmisa.com/wp-content/uploads/2014/11/movie-night-hd_main.jpg");
 	}
 	else {
 		image.setAttribute("src", poster_link);
