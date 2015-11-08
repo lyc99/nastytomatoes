@@ -38,10 +38,10 @@ function enterMovie() {
 	//delete button
 	var delete_button = set_delete_button(dynamicRow, line);
 
-	//update dialog input texts
-	var update_dialog = set_update_dialog(index);
-	//update button 
-	var update_botton = set_update_button(update_dialog, index);
+	// //update dialog input texts
+	// var update_dialog = set_update_dialog(index);
+	// //update button 
+	// var update_botton = set_update_button(update_dialog, index);
 
 	//put all elements into infoDiv
 	infoDiv.appendChild(title);
@@ -51,7 +51,7 @@ function enterMovie() {
 	infoDiv.appendChild(rating);
 	infoDiv.appendChild(delete_button);
 	infoDiv.appendChild(document.createTextNode(" "));
-	infoDiv.appendChild(update_botton);
+	//infoDiv.appendChild(update_botton);
 	//put infoDiv into dynamicRow
 	dynamicRow.appendChild(infoDiv);
 	//containDiv holds all the movies
@@ -59,6 +59,13 @@ function enterMovie() {
 	//add movie and add a line to separate between movies as well
 	containDiv.appendChild(dynamicRow);
 	containDiv.appendChild(line);
+
+	//update dialog input texts
+	var update_dialog = set_update_dialog(index);
+	//update button 
+	var update_botton = set_update_button(update_dialog, index);
+	infoDiv.appendChild(update_botton);
+
 	//increment index so different elements have different id's
 	index = index + 1;
 
@@ -75,6 +82,7 @@ function set_update_button(update_dialog, index) {
 	button.setAttribute("class", "btn btn-primary");
 	var button_text = document.createTextNode("Update");
 	button.appendChild(button_text);
+
 	button.onclick = function() {
 		$(update_dialog).dialog({
 			modal: true,
@@ -127,8 +135,13 @@ function set_rating(r, index) {
 }
 function set_actors(a, index) {
 	var actors = document.createElement("P");
-	var actors_text = document.createTextNode("Cast: " + a);
 	actors.setAttribute("id", "actors"+index);
+	//if(a == "") {
+		//var actors_text = document.createTextNode("Cast: ");
+	//}
+	//else {
+		var actors_text = document.createTextNode("Cast: " + a);
+	//}
 	actors.appendChild(actors_text);
 	return actors;
 }
@@ -159,7 +172,12 @@ function set_year(y, index) {
 function set_title(t, index) {
 	var title = document.createElement("H3");
 	title.setAttribute("id", "title"+index);
-	var title_text = document.createTextNode(t);
+	if(t == "") {
+		var title_text = document.createTextNode("-");
+	}
+	else {
+		var title_text = document.createTextNode(t);
+	}
 	title.appendChild(title_text);
 	return title;
 }
@@ -195,6 +213,8 @@ function set_update_dialog(index) {
 	var title_input = document.createElement("input");
 	title_input.type = "text";
 	title_input.setAttribute("id", "updated_title"+index);
+	//set default value for title
+	title_input.value = document.getElementById("title"+index).innerText;
 	update_dialog.appendChild(title_input);
 	//Year
 	var y = document.createTextNode("Year: ");
@@ -202,6 +222,8 @@ function set_update_dialog(index) {
 	var year_input = document.createElement("input");
 	year_input.type = "text";
 	year_input.setAttribute("id", "updated_year"+index);
+	//set default value for year
+	year_input.value = document.getElementById("year"+index).innerText;
 	update_dialog.appendChild(year_input);
 	//Genre
 	var g = document.createTextNode("Genre: ");
@@ -209,6 +231,8 @@ function set_update_dialog(index) {
 	var genre_input = document.createElement("input");
 	genre_input.type = "text";
 	genre_input.setAttribute("id", "updated_genre"+index);
+	//set default value for genre
+	genre_input.value = document.getElementById("genre"+index).innerText;
 	update_dialog.appendChild(genre_input);
 	//Actors
 	var a = document.createTextNode("Actors: ");
@@ -216,6 +240,13 @@ function set_update_dialog(index) {
 	var actors_input = document.createElement("input");
 	actors_input.type = "text";
 	actors_input.setAttribute("id", "updated_actors"+index);
+	//set default value for actors
+	if(document.getElementById("actors"+index).innerText == 'Cast:') {
+		actors_input.value = "";
+	}
+	else {
+		actors_input.value = document.getElementById("actors"+index).innerText.replace('Cast: ', '');
+	}
 	update_dialog.appendChild(actors_input);
 	//Rating
 	var r = document.createTextNode("Rating: ");
@@ -223,25 +254,14 @@ function set_update_dialog(index) {
 	var rating_input = document.createElement("input");
 	rating_input.type = "text";
 	rating_input.setAttribute("id", "updated_rating"+index);
+	//set default value for rating
+	if(document.getElementById("rating"+index).innerText == 'Rating: /5') {
+		rating_input.value = "";
+	}
+	else {
+		rating_input.value = document.getElementById("rating"+index).innerText.charAt(8);
+	}
 	update_dialog.appendChild(rating_input);
-	//Poster
-	// var p = document.createTextNode("Poster: ");
-	// update_dialog.appendChild(p);
-	// var poster_input = document.createElement("input");
-	// poster_input.type = "text";
-	// poster_input.setAttribute("id", "updated_poster");
-	// update_dialog.appendChild(poster_input);
-
-	//button
-
-	// var button = document.createElement('submit');
-	// button.setAttribute("class", "btn btn-primary");
-	// var button_text = document.createTextNode("Update");
-	// button.appendChild(button_text);
-	// button.onclick = function() {
-	// 	$(update_dialog).dialog();
-	// }
-	// update_dialog.appendChild(button);
 
 	return update_dialog;
 }
