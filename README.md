@@ -1,3 +1,8 @@
+##Nasty Tomatoes
+This is my project for the inMotion coding challenge.
+In my poor-man's version of Rotten Tomatoes, you can enter, update, and delete movies. 
+Below is information of Bootstrap that I have used for this project. 
+
 # [Start Bootstrap](http://startbootstrap.com/) - [1 Col Portfolio](http://startbootstrap.com/template-overviews/1-col-portfolio/)
 
 [1 Col Portfolio](http://startbootstrap.com/template-overviews/1-col-portfolio/) is a one column portfolio template for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).
