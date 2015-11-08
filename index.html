@@ -27,18 +27,22 @@
 <body>
     <!-- Page Content -->
     <div id="containDiv" class="container">
-        <form name="movieForm" onsubmit="return enterMovie()">
-            <div id="dynamicInput">
-                Title: <input type="text" id="title" name="movie"><t>
+    <h1 id="headTitle"> Nasty Tomatoes </h1> <br>
+
+        <div id="dynamicInput" align="center">
+            <form name="movieForm" onsubmit="return enterMovie()">
+            
+                Title: <input type="text" id="title"><t>
                 Year: <input type="text" id="year"><t>  
                 Genre: <input type="text" id="genre"><br>  
                 Actors: <input type="text" id="actors"><t>
                 Rating (0-5): <input type="text" id="rating"><t>
                 Poster (link): <input type="text" id="poster"><br>             
-            </div>
+            
             <br>
             <input type="submit" class="btn btn-primary" value="Enter Movie">
-        </form>
+            </form>
+        </div>
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">

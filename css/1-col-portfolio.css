@@ -11,3 +11,10 @@ body {
 footer {
     margin: 50px 0;
 }
+
+#headTitle {
+	text-align: center;
+	font-size: 400%;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	color: #5f9ea0;
+}

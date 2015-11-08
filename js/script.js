@@ -59,8 +59,14 @@ function enterMovie() {
 	//add movie and add a line to separate between movies as well
 	containDiv.appendChild(dynamicRow);
 	containDiv.appendChild(line);
-	//increment index so different dynamicRow's have different id's
+	//increment index so different elements have different id's
 	index = index + 1;
+
+	//reset inputs to blank for next round
+	for(var i=0; i < category.length; i++) {
+		var input = document.getElementById(category[i]);
+		input.value = "";
+	}
 
     return false;
 }
