@@ -51,7 +51,7 @@ function enterMovie(){
 	infoDiv.appendChild(actors);
 	infoDiv.appendChild(rating);
 	infoDiv.appendChild(delete_button);
-	infoDiv.innerHTML += '&nbsp;';
+	infoDiv.appendChild(document.createTextNode(" "));
 	infoDiv.appendChild(update_botton);
 	//put infoDiv into dynamicRow
 	dynamicRow.appendChild(infoDiv);
@@ -76,27 +76,7 @@ function set_rating(r) {
 	rating.appendChild(rating_text);
 	return rating;
 }
-function set_update_dialog() {
-	var update_dialog = document.createElement("div");
-	update_dialog.setAttribute("id", "dialog");
-	//Title
-	var t = document.createTextNode("Title: ");
-	update_dialog.appendChild(t);
-	var title_input = document.createElement("input");
-	title_input.type = "text";
-	title_input.setAttribute("id", "updated_title");
-	update_dialog.appendChild(title_input);
-	//Genre
-	var g = document.createTextNode("Genre: ");
-	update_dialog.appendChild(g);
-	var genre_input = document.createElement("input");
-	genre_input.type = "text";
-	genre_input.setAttribute("id", "updated_genre");
-	update_dialog.appendChild(genre_input);
 
-
-	return update_dialog;
-}
 function set_update_button(update_dialog) {
 	var button = document.createElement('submit');
 	button.setAttribute("class", "btn btn-primary");
@@ -177,4 +157,39 @@ function set_poster(poster_link) {
 	imageAnchor.appendChild(image);
 	imageDiv.appendChild(imageAnchor);
 	return imageDiv;
+}
+function set_update_dialog() {
+	var update_dialog = document.createElement("div");
+	update_dialog.setAttribute("id", "dialog");
+	//Title
+	var t = document.createTextNode("Title: ");
+	update_dialog.appendChild(t);
+	var title_input = document.createElement("input");
+	title_input.type = "text";
+	title_input.setAttribute("id", "updated_title");
+	update_dialog.appendChild(title_input);
+	//Year
+	var y = document.createTextNode("Year: ");
+	update_dialog.appendChild(y);
+	var year_input = document.createElement("input");
+	year_input.type = "text";
+	year_input.setAttribute("id", "updated_year");
+	update_dialog.appendChild(year_input);
+	//Genre
+	var g = document.createTextNode("Genre: ");
+	update_dialog.appendChild(g);
+	var genre_input = document.createElement("input");
+	genre_input.type = "text";
+	genre_input.setAttribute("id", "updated_genre");
+	update_dialog.appendChild(genre_input);
+	//Actors
+	var a = document.createTextNode("Actors: ");
+	update_dialog.appendChild(a);
+	var actors_input = document.createElement("input");
+	actors_input.type = "text";
+	actors_input.setAttribute("id", "updated_actors");
+	update_dialog.appendChild(actors_input);
+
+
+	return update_dialog;
 }
